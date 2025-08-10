@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace MyApplication
 {
@@ -24,45 +24,41 @@ namespace MyApplication
                 if ((jersey.ToLower()) == "yes")
                 {
                     total_price = 150 + 100;
-
                 }
                 else
                 {
                     total_price = 150;
-
                 }
-
-
             }
             if ((type.ToLower()) == "adults")
             {
                 if ((jersey.ToLower()) == "yes")
                 {
                     total_price = 230 + 120;
-
                 }
                 else
                 {
                     total_price = 230;
-
                 }
-
             }
         }
     }
+
     class Program
-    { 
+    {
         public static void Main(string[] args)
         {
             int no_of_user;
             int no_of_registration;
             int no_of_player;
-            String name;
-            String type;
-            String jersey;
-            Console.WriteLine("                                            Welcome to Tigers Scoccer Club");
+            string name;
+            string type;
+            string jersey;
+
+            Console.WriteLine("                                            Welcome to Tigers Soccer Club"); // fix 1: Scoccer -> Soccer
             Console.WriteLine("Enter the total no of registration");
             no_of_registration = Convert.ToInt32(Console.ReadLine());
+
             do
             {
                 Console.WriteLine("Enter the numbers of players per registration");
@@ -71,16 +67,17 @@ namespace MyApplication
                 {
                     Console.WriteLine("The numbers of players per registration must be between 1 and 4");
                 }
+            } while (no_of_player < 1 || no_of_player > 4);
 
-            } while (no_of_player < 1 || no_of_player>4);
             Console.WriteLine("--------------------------------------------------------------------------------------------\n\n");
             no_of_user = no_of_registration * no_of_player;
             Player[] p = new Player[no_of_user];
-            for(int i=0; i<no_of_user;i++)
+
+            for (int i = 0; i < no_of_user; i++)
             {
                 Console.WriteLine("Enter player name:");
                 name = Console.ReadLine();
-                
+
                 Console.WriteLine("Registration type:");
                 type = Console.ReadLine();
                 Console.WriteLine("Enter yes/no to indicate whether you want a jersey:");
@@ -88,48 +85,45 @@ namespace MyApplication
                 p[i] = new Player(name, type, jersey);
                 p[i].calculate_price();
                 Console.WriteLine("--------------------------------------------------------------------------------------------\n\n");
-
-
-
             }
+
             Console.WriteLine("                                                Summary of Registration\n\n");
             float max = p[0].total_price;
             float min = p[0].total_price;
 
-            for (int i=0;i<no_of_player;i++)
+            // fix 2: iterate across all users, not just players per registration
+            for (int i = 0; i < no_of_user; i++)
             {
-                if(p[i].total_price>max)
+                if (p[i].total_price > max)
                 {
                     max = p[i].total_price;
-
-
                 }
-                if(p[i].total_price<min)
+                if (p[i].total_price < min)
                 {
                     min = p[i].total_price;
                 }
-                
-
-
-
-
             }
+
             Console.WriteLine("--------------------------------------------------------------------------------------------\n\n");
             Console.WriteLine("Name                 Type                    Jersey                  Cost");
-            for(int i=0;i<no_of_user;i++)
+            float grandTotal = 0;
+            for (int i = 0; i < no_of_user; i++)
             {
                 Console.WriteLine(p[i].name + "             " + p[i].type + "                   " + p[i].jersey + "                         " + p[i].total_price);
+                grandTotal += p[i].total_price;
             }
             Console.WriteLine("--------------------------------------------------------------------------------------------\n\n");
+
             string output = "The player spending most:    ";
-            for(int i=0;i<no_of_user;i++)
+            for (int i = 0; i < no_of_user; i++)
             {
-                if(p[i].total_price==max)
+                if (p[i].total_price == max)
                 {
                     output = output + p[i].name + ", ";
                 }
             }
             Console.WriteLine(output);
+
             output = "The player spending least:    ";
             for (int i = 0; i < no_of_user; i++)
             {
@@ -140,26 +134,7 @@ namespace MyApplication
             }
             Console.WriteLine(output);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            Console.WriteLine("Grand total collected: " + grandTotal);
         }
-
     }
-
-
 }
